@@ -1,0 +1,27 @@
+---
+
+galaxy_info:
+  author: Pham Tuan Anh
+  description: Ansible role to install Redis HA on Kubernetes
+  min_ansible_version: 2.0
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: EL
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+    - name: Archlinux
+    - name: Alpine
+      versions:
+        - all
+  galaxy_tags:
+    - kubernetes
+
+dependencies: []

@@ -46,7 +46,6 @@ redis_ha_sentinel_resources:
   vars:
     redis_ha_server_replicas: 5
     redis_ha_sentinel_replicas: 3
-
   roles:
     - role: redis-ha
 ```
