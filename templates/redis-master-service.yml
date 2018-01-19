@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-ha-master-svc
+  namespace: {{ redis_ha_namespace }}
+spec:
+  ports:
+    - port: 6379
+      protocol: TCP
+      targetPort: 6379
+  selector:
+    app: "redis-ha"
+    redis-node: "true"
+    redis-role: "master"
+  type: ClusterIP

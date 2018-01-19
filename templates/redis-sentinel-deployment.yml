@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis-ha-sentinel
+  namespace: {{ redis_ha_namespace }}
+spec:
+  replicas: {{ redis_ha_sentinel_replicas }}
+  template:
+    metadata:
+      labels:
+        app: "redis-ha"
+        name: redis-ha-sentinel
+    spec:
+{% if redis_ha_node_selector | default({}) %}
+      nodeSelector:
+        {{ redis_ha_node_selector | to_nice_yaml | indent(8) }}
+{% endif %}
+      containers:
+        - name: sentinel
+          image: {{ redis_ha_image }}
+          resources:
+            {{ redis_ha_sentinel_resources | to_nice_yaml(indent=2) | indent(12) }}
+          env:
+            - name: SENTINEL
+              value: "true"
+            - name: REDIS_CHART_PREFIX
+              value: redis-ha-
+          ports:
+            - containerPort: 26379

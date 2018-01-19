@@ -1,0 +1,12 @@
+---
+
+- name: Install redis-ha
+  command: kubectl apply -f -
+  args:
+    stdin: "{{ item }}"
+  with_items:
+    - "{{ lookup('template', 'redis-master-service.yml') }}"
+    - "{{ lookup('template', 'redis-slave-service.yml') }}"
+    - "{{ lookup('template', 'redis-sentinel-service.yml') }}"
+    - "{{ lookup('template', 'redis-server-deployment.yml') }}"
+    - "{{ lookup('template', 'redis-sentinel-deployment.yml') }}"
