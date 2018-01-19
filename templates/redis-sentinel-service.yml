@@ -2,10 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    name: redis-ha-sentinel-svc
+    name: redis-sentinel-svc
     role: service
-  name: redis-ha-sentinel
-  namespace: {{ redis_ha_namespace }}
+  name: redis-sentinel
+  namespace: {{ redis_namespace }}
 spec:
   ports:
     - port: 26379

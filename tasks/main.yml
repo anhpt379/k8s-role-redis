@@ -1,6 +1,6 @@
 ---
 
-- name: Install redis-ha
+- name: Install redis
   command: kubectl apply -f -
   args:
     stdin: "{{ item }}"

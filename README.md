@@ -6,27 +6,27 @@ Ansible role to install Redis HA on Kubernetes.
 
 ```yaml
 # Image used
-redis_ha_image: quay.io/smile/redis:4.0.6r2
+redis_image: quay.io/smile/redis:4.0.6r2
 
 # Namespace
-redis_ha_namespace: default
+redis_namespace: default
 
 # Number of replicas
-redis_ha_server_replicas: 3
-redis_ha_sentinel_replicas: 3
+redis_server_replicas: 3
+redis_sentinel_replicas: 3
 
 # Node selector
-redis_ha_node_selector: {}
+redis_node_selector: {}
 
 # Resources
-redis_ha_server_resources:
+redis_server_resources:
   requests:
     memory: 200Mi
     cpu: 100m
   limits:
     memory: 700Mi
 
-redis_ha_sentinel_resources:
+redis_sentinel_resources:
   requests:
     memory: 200Mi
     cpu: 100m
@@ -44,10 +44,10 @@ redis_ha_sentinel_resources:
 - hosts: kube-master
   run_once: true
   vars:
-    redis_ha_server_replicas: 5
-    redis_ha_sentinel_replicas: 3
+    redis_server_replicas: 5
+    redis_sentinel_replicas: 3
   roles:
-    - role: redis-ha
+    - role: redis
 ```
 
 Use `run_once` to run the role on only one available master in the cluster.
@@ -56,5 +56,5 @@ Use `run_once` to run the role on only one available master in the cluster.
 
 ```bash
 pip install ansible-toolbox
-ansible-role roles/redis-ha/
+ansible-role roles/redis/
 ```

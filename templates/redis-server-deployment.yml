@@ -2,35 +2,35 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: redis-ha-server
-  namespace: {{ redis_ha_namespace }}
+  name: redis-server
+  namespace: {{ redis_namespace }}
   labels:
-    app: "redis-ha"
+    app: "redis"
     name: "redis-server"
     redis-node: "true"
 spec:
-  replicas: {{ redis_ha_server_replicas }}
+  replicas: {{ redis_server_replicas }}
   template:
     metadata:
       labels:
-        app: "redis-ha"
+        app: "redis"
         name: "redis-server"
         redis-node: "true"
     spec:
-{% if redis_ha_node_selector | default({}) %}
+{% if redis_node_selector | default({}) %}
       nodeSelector:
-        {{ redis_ha_node_selector | to_nice_yaml | indent(8) }}
+        {{ redis_node_selector | to_nice_yaml | indent(8) }}
 {% endif %}
       containers:
         - name: redis
-          image: {{ redis_ha_image }}
+          image: {{ redis_image }}
           resources:
-            {{ redis_ha_server_resources | to_nice_yaml(indent=2) | indent(12) }}
+            {{ redis_server_resources | to_nice_yaml(indent=2) | indent(12) }}
           env:
             - name: REDIS_SENTINEL_SERVICE_HOST
-              value: "redis-ha-sentinel"
+              value: "redis-sentinel"
             - name: REDIS_CHART_PREFIX
-              value: redis-ha-
+              value: redis-
           ports:
             - containerPort: 6379
           volumeMounts:
