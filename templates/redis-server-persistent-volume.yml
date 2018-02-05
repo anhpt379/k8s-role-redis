@@ -1,0 +1,16 @@
+{% for volume in redis_persistent_volumes %}
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: redis-pv{{ loop.index }}
+  labels:
+    type: local
+    app: redis
+spec:
+  capacity:
+    storage: {{ redis_persistent_volume_size }}
+  accessModes:
+    - ReadWriteOnce
+  {{ volume | to_nice_yaml(indent=2) | indent(2) }}
+{% endfor %}

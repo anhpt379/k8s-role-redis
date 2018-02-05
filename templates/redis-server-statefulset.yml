@@ -1,6 +1,6 @@
 
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: apps/v1beta1
+kind: StatefulSet
 metadata:
   name: redis-server
   namespace: {{ redis_namespace }}
@@ -10,6 +10,7 @@ metadata:
     redis-node: "true"
 spec:
   replicas: {{ redis_server_replicas }}
+  serviceName: redis-server
   template:
     metadata:
       labels:
@@ -36,5 +37,16 @@ spec:
           volumeMounts:
             - mountPath: /redis-master-data 
               name: data
-      volumes:
-        - name: data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ redis_persistent_volume_size }}
+        selector:
+          matchLabels:
+            type: local
+            app: redis

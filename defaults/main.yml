@@ -23,3 +23,12 @@ redis_sentinel_resources:
     cpu: 100m
   limits:
     memory: 200Mi
+
+redis_persistent_volumes:
+  - hostPath:
+      path: /tmp/redis-pv1
+  - hostPath:
+      path: /tmp/redis-pv2
+  - hostPath:
+      path: /tmp/redis-pv3
+redis_persistent_volume_size: 100Mi

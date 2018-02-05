@@ -8,5 +8,6 @@
     - "{{ lookup('template', 'redis-master-service.yml') }}"
     - "{{ lookup('template', 'redis-slave-service.yml') }}"
     - "{{ lookup('template', 'redis-sentinel-service.yml') }}"
-    - "{{ lookup('template', 'redis-server-deployment.yml') }}"
+    - "{{ lookup('template', 'redis-server-persistent-volume.yml') }}"
+    - "{{ lookup('template', 'redis-server-statefulset.yml') }}"
     - "{{ lookup('template', 'redis-sentinel-deployment.yml') }}"
